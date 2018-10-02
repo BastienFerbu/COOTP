@@ -5,14 +5,67 @@ import java.util.ArrayList;
 public class Simu {
 	protected ArrayList<AtomicComponent> components;
 	protected ArrayList<AtomicComponent> imminents;
+    protected ArrayList<String> current_outputs;
 	protected double t;
 	protected double tfin;
 
-	public Simu(ArrayList<AtomicComponent> _components){
+	public Simu(double _tfin){
 		t=0;
-		tfin=5;
-		components = _components;
+		tfin=_tfin;
+		components = new ArrayList<AtomicComponent>();
 		imminents = new ArrayList<AtomicComponent>();
+        current_outputs = new ArrayList<String>();
+	}
+
+	public void add(AtomicComponent ac){
+		ac.init();
+		components.add(ac);
+	}
+
+	public void run() {
+		while (t < tfin) {
+
+
+			double t_min = Double.POSITIVE_INFINITY;
+			current_outputs = new ArrayList<String>();
+
+			for(AtomicComponent cp : components) {
+				t_min = Math.min(t_min,cp.getTr());
+			}
+
+			//Retrieve imminent components
+			for(AtomicComponent cp : components) {
+				if (cp.getTr() == t_min) {
+					imminents.add(cp);
+				}
+			}
+
+            System.out.println("t_min : " + t_min);
+            //Create output from components
+            for(AtomicComponent im : imminents){
+                current_outputs.addAll(im.lambda());
+            }
+
+            System.out.println(this.toString());
+
+			// Tick before reset e from changing state
+			for(AtomicComponent cp : components) {
+				cp.tick(t_min);
+			}
+
+
+			for(AtomicComponent cp : components){
+				if(imminents.contains(cp)){
+					//Delta will choose between d_int and d_conf
+					cp.delta(current_outputs);
+				}
+				else if(!imminents.contains(cp)) {
+					cp.delta_ext(current_outputs);
+				}
+			}
+			t = t + t_min;
+			imminents.clear();
+		}
 	}
 
 	@Override
@@ -27,68 +80,11 @@ public class Simu {
 		for(AtomicComponent cp : imminents){
 			message += cp.name+", ";
 		}
+		message += "Output = ";
+        for(String output : current_outputs){
+            message += output+", ";
+        }
 		message += "\n***************************************************************\n";
 		return message;
 	}
-
-	public static void main(String[] args) {
-		AtomicComponent gen, buf, proc;
-		ArrayList<AtomicComponent> components = new ArrayList<AtomicComponent>();
-		
-		gen = new Gen("gen");
-		buf = new Buf("buf");
-		proc = new Proc("proc");
-
-		gen.init();
-		buf.init();
-		proc.init();
-
-		components.add(gen);
-		components.add(buf);
-		components.add(proc);
-
-		Simu simu = new Simu(components);
-
-		while (simu.t < simu.tfin) {
-
-
-			double t_min = Double.POSITIVE_INFINITY;
-			ArrayList<String> current_outputs = new ArrayList<String>();
-
-			for(AtomicComponent cp : components) {
-				t_min = Math.min(t_min,cp.getTr());
-			}
-
-			System.out.println(t_min);
-			System.out.println(simu.toString());
-			for(AtomicComponent cp : components) {
-				//TODO == t_min ou 0 ?
-				if (cp.getTr() == t_min) {
-					simu.imminents.add(cp);
-				}
-			}
-
-			for(AtomicComponent cp : components) {
-				cp.tick(t_min);
-			}
-
-			for(AtomicComponent im : simu.imminents){
-				 current_outputs.addAll(im.lambda());
-			}
-			for(AtomicComponent cp : components){
-				if(simu.imminents.contains(cp)){
-					cp.delta(current_outputs);
-				}
-				else {
-					cp.delta_ext(current_outputs);
-				}
-			}
-
-
-
-			simu.t = simu.t + t_min;
-			simu.imminents.clear();
-		}
-	}
-
 }

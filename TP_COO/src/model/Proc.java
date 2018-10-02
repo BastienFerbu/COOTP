@@ -42,7 +42,7 @@ public class Proc extends AtomicComponent{
 			return Double.POSITIVE_INFINITY;
 		}
 		else if(current_state == 1){
-			return 2.0;
+			return 3.0;
 		}
 		return -1;
 	}	

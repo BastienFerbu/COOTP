@@ -65,9 +65,9 @@ public class Simu {
 
 
 			for(AtomicComponent cp : components){
-			    if(cp instanceof Buf){
-			        Buf b = (Buf) cp;
-                    c.addDataToSeries(t, b.getQ());
+			    if(cp instanceof Adder){
+			        Adder b = (Adder) cp;
+                    c.addDataToSeries(t, b.getx_sum());
                 }
 				if(imminents.contains(cp)){
 					//Delta will choose between d_int and d_conf

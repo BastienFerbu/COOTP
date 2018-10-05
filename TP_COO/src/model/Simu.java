@@ -1,20 +1,30 @@
 package model;
 
+import chart.Chart;
+import chart.ChartFrame;
+
 import java.util.ArrayList;
 
 public class Simu {
 	protected ArrayList<AtomicComponent> components;
 	protected ArrayList<AtomicComponent> imminents;
-    protected ArrayList<String> current_outputs;
+    protected ArrayList<Tuple<String,Double>> current_outputs;
 	protected double t;
 	protected double tfin;
+
+	protected ChartFrame cf;
+	protected Chart c;
 
 	public Simu(double _tfin){
 		t=0;
 		tfin=_tfin;
 		components = new ArrayList<AtomicComponent>();
 		imminents = new ArrayList<AtomicComponent>();
-        current_outputs = new ArrayList<String>();
+        current_outputs = new ArrayList<Tuple<String,Double>>();
+
+        cf = new ChartFrame("GBG", "GBG");
+        c = new Chart("q");
+        cf.addToLineChartPane(c);
 	}
 
 	public void add(AtomicComponent ac){
@@ -27,7 +37,7 @@ public class Simu {
 
 
 			double t_min = Double.POSITIVE_INFINITY;
-			current_outputs = new ArrayList<String>();
+			current_outputs = new ArrayList<Tuple<String,Double>>();
 
 			for(AtomicComponent cp : components) {
 				t_min = Math.min(t_min,cp.getTr());
@@ -55,6 +65,10 @@ public class Simu {
 
 
 			for(AtomicComponent cp : components){
+			    if(cp instanceof Buf){
+			        Buf b = (Buf) cp;
+                    c.addDataToSeries(t, b.getQ());
+                }
 				if(imminents.contains(cp)){
 					//Delta will choose between d_int and d_conf
 					cp.delta(current_outputs);
@@ -81,7 +95,7 @@ public class Simu {
 			message += cp.name+", ";
 		}
 		message += "Output = ";
-        for(String output : current_outputs){
+        for(Tuple<String,Double> output : current_outputs){
             message += output+", ";
         }
 		message += "\n***************************************************************\n";

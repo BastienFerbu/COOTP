@@ -12,9 +12,9 @@ public class Buf extends AtomicComponent{
 		super(name);
 		
 		integer_varnames_var = new HashMap<String,Integer>();
-		outputs.add("req");
-		inputs.add("done");
-		inputs.add("job");
+		outputs.add(new Tuple<String,Double>("req",0.0));
+		inputs.add(new Tuple<String,Double>("done",0.0));
+		inputs.add(new Tuple<String,Double>("job",0.0));
 	}
 	
 	public void init() {
@@ -32,40 +32,40 @@ public class Buf extends AtomicComponent{
 		current_state = next_state;
 	}
 
-	public void delta_ext(ArrayList<String> inputs){
-		if(current_state == 0 && inputs.contains("job")){
+	public void delta_ext(ArrayList<Tuple<String,Double>> inputs){
+		if(current_state == 0 && containsInputs(inputs,"job")){
 			q++;
 			integer_varnames_var.put("q",q);
 			changeState(1);
 		}
-		else if(current_state == 1 && inputs.contains("job")){
+		else if(current_state == 1 && containsInputs(inputs,"job")){
 			q++;
 			integer_varnames_var.put("q",q);
 			changeState(1);
 		}
-		else if(current_state == 2 && inputs.contains("done")){
+		else if(current_state == 2 && containsInputs(inputs,"job")){
+			q++;
+			integer_varnames_var.put("q",q);
+			changeState(2);
+		}
+		else if(current_state == 2 && containsInputs(inputs,"done")){
 			if(q>0)
 				changeState(1);
 			if(q==0)
 				changeState(0);
 		}
-		else if(current_state == 2 && inputs.contains("job")){
-			q++;
-			integer_varnames_var.put("q",q);
-			changeState(2);
-		}
 		
 		current_state = next_state;
 	}
 	
-	public void delta_con(ArrayList<String> inputs){
+	public void delta_con(ArrayList<Tuple<String,Double>> inputs){
 		current_state = next_state;
 	}
 
-	public ArrayList<String> lambda(){
-		ArrayList<String> outputs = new ArrayList<String>();
+	public ArrayList<Tuple<String,Double>> lambda(){
+		ArrayList<Tuple<String,Double>> outputs = new ArrayList<Tuple<String,Double>>();
 		if(current_state == 1){
-			outputs.add("req");
+			outputs.add(new Tuple<String,Double>("req",0.0));
 		}
 		return outputs;
 	}
@@ -83,5 +83,9 @@ public class Buf extends AtomicComponent{
 		}
 		
 		return 0;
+	}
+
+	public int getQ(){
+		return q;
 	}
 }

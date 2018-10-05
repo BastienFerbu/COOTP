@@ -5,8 +5,8 @@ public class Proc extends AtomicComponent{
 	
 	public Proc(String name){
 		super(name);
-		outputs.add("done");
-		inputs.add("req");
+		outputs.add(new Tuple<String,Double>("done", 0.0));
+		inputs.add(new Tuple<String,Double>("req", 0.0));
 	}
 	
 	public void init() {
@@ -19,20 +19,20 @@ public class Proc extends AtomicComponent{
 		current_state = next_state;
 	}
 
-	public void delta_ext(ArrayList<String> inputs){
-		if(current_state == 0 && inputs.contains("req"))
+	public void delta_ext(ArrayList<Tuple<String,Double>> inputs){
+		if(current_state == 0 && containsInputs(inputs,"req"))
 			changeState(1);
 		current_state = next_state;
 	}
 	
-	public void delta_con(ArrayList<String> inputs){
+	public void delta_con(ArrayList<Tuple<String,Double>> inputs){
 		current_state = next_state;
 	}
 
-	public ArrayList<String> lambda(){
-		ArrayList<String> outputs = new ArrayList<String>();
+	public ArrayList<Tuple<String,Double>> lambda(){
+		ArrayList<Tuple<String,Double>> outputs = new ArrayList<Tuple<String,Double>>();
 		if(current_state == 1){
-			outputs.add("done");
+			outputs.add(new Tuple<String,Double>("done",0.0));
 		}
 		return outputs;
 	}

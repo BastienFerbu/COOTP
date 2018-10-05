@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 
 
@@ -8,8 +9,8 @@ public abstract class AtomicComponent {
 	protected int current_state;
 	protected int next_state;
 	
-	protected ArrayList<String> inputs;
-	protected ArrayList<String> outputs;
+	protected ArrayList<Tuple<String,Double>> inputs;
+	protected ArrayList<Tuple<String,Double>> outputs;
 	protected HashMap<String,Integer> integer_varnames_var;
 
 	protected String name;
@@ -23,18 +24,18 @@ public abstract class AtomicComponent {
 		
 		e = 0;
 		
-		inputs = new ArrayList<String>();
-		outputs = new ArrayList<String>();
+		inputs = new ArrayList<Tuple<String,Double>>();
+		outputs = new ArrayList<Tuple<String,Double>>();
 	}
 	public abstract void init();
 
 	public abstract void delta_int();
 
-	public abstract void delta_ext(ArrayList<String> inputs);
+	public abstract void delta_ext(ArrayList<Tuple<String,Double>> inputs);
 	
-	public abstract void delta_con(ArrayList<String> inputs);
+	public abstract void delta_con(ArrayList<Tuple<String,Double>> inputs);
 
-	public abstract ArrayList<String> lambda();
+	public abstract ArrayList<Tuple<String,Double>> lambda();
 
 	public abstract double getTa();
 
@@ -52,9 +53,9 @@ public abstract class AtomicComponent {
 	 * Use only with iminent component
 	 * @param _inputs
 	 */
-	public void delta(ArrayList<String> _inputs){
+	public void delta(ArrayList<Tuple<String,Double>> _inputs){
 		boolean input_for_me = false;
-		for (String s: this.inputs) {
+		for (Tuple<String,Double> s: this.inputs) {
 			if(_inputs.contains(s)) { //One input is for me
 				input_for_me = true;
 				break;
@@ -85,4 +86,14 @@ public abstract class AtomicComponent {
 		String message = "Je suis le composant "+this.name+" et je passe à l'état "+this.current_state;
 		return message;
 	}
+
+
+    public static boolean containsInputs(Collection<Tuple<String, Double>> c, String name) {
+        for(Tuple<String, Double> o : c) {
+            if(o != null && o.x.equals(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

@@ -13,7 +13,7 @@ public abstract class CoupledComponent {
 	protected String name;
 	
 	
-	public AtomicComponent(String _name) {
+	public CoupledComponent(String _name) {
 		name = _name;
 		components = new ArrayList<AtomicComponent>();
 		

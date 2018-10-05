@@ -5,32 +5,32 @@ public class Gen  extends AtomicComponent{
 
 	public Gen(String name){
 		super(name);
-		outputs.add("job");
+		outputs.add(new Tuple<String,Double>("job",0.0));
 
 	}
-	
+
 	public void init() {
 		current_state = 0;
 	}
-	
+
 	public void delta_int(){
 		if(current_state == 0 )
 			changeState(0);
 		current_state = next_state;
 	}
-	
-	public void delta_ext(ArrayList<String> inputs){
-		current_state = next_state;
-	}
-	
-	public void delta_con(ArrayList<String> inputs){
+
+	public void delta_ext(ArrayList<Tuple<String,Double>> inputs){
 		current_state = next_state;
 	}
 
-	public ArrayList<String> lambda(){
-		ArrayList<String> outputs = new ArrayList<String>();
+	public void delta_con(ArrayList<Tuple<String,Double>> inputs){
+		current_state = next_state;
+	}
+
+	public ArrayList<Tuple<String,Double>> lambda(){
+		ArrayList<Tuple<String,Double>> outputs = new ArrayList<Tuple<String,Double>>();
 		if(current_state == 0){
-			outputs.add("job");
+			outputs.add(new Tuple<String,Double>("job",0.0));
 		}
 		return outputs;
 	}

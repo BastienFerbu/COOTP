@@ -23,7 +23,7 @@ public class Simu {
         current_outputs = new ArrayList<Tuple<String,Double>>();
 
         cf = new ChartFrame("GBG", "GBG");
-        c = new Chart("q");
+        c = new Chart("x");
         cf.addToLineChartPane(c);
 	}
 

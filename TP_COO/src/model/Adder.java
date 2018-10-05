@@ -24,7 +24,6 @@ public class Adder extends AtomicComponent{
     }
 
     public void delta_int(){
-        System.out.println("DELTA INT ADDER #######");
         if(current_state == 1 )
             changeState(0);
         current_state = next_state;
@@ -39,10 +38,7 @@ public class Adder extends AtomicComponent{
                 }
             }
         }
-        if(current_state == 1)
-            changeState(1);
-        else
-            changeState(0);
+        changeState(1);
         current_state = next_state;
     }
 

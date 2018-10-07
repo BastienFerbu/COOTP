@@ -16,6 +16,7 @@ public class Simu {
 	protected Chart c;
 
 	public Simu(double _tfin){
+
 		t=0;
 		tfin=_tfin;
 		components = new ArrayList<AtomicComponent>();
@@ -25,10 +26,11 @@ public class Simu {
         cf = new ChartFrame("GBG", "GBG");
         c = new Chart("x");
         cf.addToLineChartPane(c);
+        c.setIsVisible(true);
+
 	}
 
 	public void add(AtomicComponent ac){
-		ac.init();
 		components.add(ac);
 	}
 
@@ -50,13 +52,13 @@ public class Simu {
 				}
 			}
 
-            System.out.println("t_min : " + t_min);
+            //System.out.println("t_min : " + t_min);
             //Create output from components
             for(AtomicComponent im : imminents){
                 current_outputs.addAll(im.lambda());
             }
 
-            System.out.println(this.toString());
+            //System.out.println(this.toString());
 
 			// Tick before reset e from changing state
 			for(AtomicComponent cp : components) {
@@ -65,9 +67,9 @@ public class Simu {
 
 
 			for(AtomicComponent cp : components){
-			    if(cp instanceof Adder){
-			        Adder b = (Adder) cp;
-                    c.addDataToSeries(t, b.getx_sum());
+			    if(cp instanceof Integrator){
+                    Integrator b = (Integrator) cp;
+                    c.addDataToSeries(t, b.getX());
                 }
 				if(imminents.contains(cp)){
 					//Delta will choose between d_int and d_conf

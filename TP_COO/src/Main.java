@@ -19,7 +19,7 @@ public class Main {
 		s.add(proc);
 
 		s.run();*/
-		Simu s = new Simu(18.0);
+		Simu s = new Simu(2.0);
 
 		s.add(new Step("Step1",1,-3,0.65));
 		s.add(new Step("Step2",0,1,0.35));
@@ -33,6 +33,7 @@ public class Main {
 		inputs_name.add("Step4");
 
 		s.add(new Adder("Adder",inputs_name));
+		s.add(new Integrator("Integrator",0.0001));
 
 		s.run();
 

@@ -55,7 +55,6 @@ public class Adder extends AtomicComponent{
             }
             outputs.add(new Tuple<String,Double>(this.name,x_sum));
         }
-        System.out.println("Mon X_sum = "+x_sum);
         return outputs;
     }
 

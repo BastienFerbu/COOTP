@@ -27,7 +27,6 @@ public abstract class AtomicComponent {
 		inputs = new ArrayList<Tuple<String,Double>>();
 		outputs = new ArrayList<Tuple<String,Double>>();
 	}
-	public abstract void init();
 
 	public abstract void delta_int();
 

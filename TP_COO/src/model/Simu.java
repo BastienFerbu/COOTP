@@ -28,7 +28,7 @@ public class Simu {
         cf = new ChartFrame("GBG", "GBG");
         c = new Chart("V");
 		c2 = new Chart("H");
-        c3 = new Chart("integrator");
+        c3 = new Chart("comp");
         cf.addToLineChartPane(c);
         cf.addToLineChartPane(c2);
         cf.addToLineChartPane(c3);
@@ -63,15 +63,18 @@ public class Simu {
             //System.out.println("t_min : " + t_min);
             //Create output from components
             for(AtomicComponent im : imminents){
+                if(im instanceof Comp){
+                    Comp b = (Comp) im;
+                    c3.addDataToSeries(t, b.getOutput()*12);
+                }
+
                 current_outputs.addAll(im.lambda());
+
+
             }
-
-            System.out.println(this.toString());
-
-			// Tick before reset e from changing state
-			for(AtomicComponent cp : components) {
-				cp.tick(t_min);
-			}
+            for(AtomicComponent cp : components) {
+                cp.tick(t_min);
+            }
 
 
 			for(AtomicComponent cp : components){
@@ -86,14 +89,23 @@ public class Simu {
                 }
 
 
+                boolean containsInput = false;
+                for (Tuple<String,Double> out : cp.getInputs())
+                    if(current_outputs.contains(out)){
+                        containsInput = true;
+                        break;
+                    }
 
-				if(imminents.contains(cp)){
+				if(imminents.contains(cp) && !containsInput){
 					//Delta will choose between d_int and d_conf
-					cp.delta(current_outputs);
+					cp.delta_int();
 				}
-				else if(!imminents.contains(cp)) {
+				else if(!imminents.contains(cp) && containsInput) {
 					cp.delta_ext(current_outputs);
 				}
+				else if(imminents.contains(cp) && containsInput){
+				    cp.delta_con(current_outputs);
+                }
 			}
 			t = t + t_min;
 			imminents.clear();

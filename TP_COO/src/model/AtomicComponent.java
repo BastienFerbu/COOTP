@@ -98,4 +98,8 @@ public abstract class AtomicComponent {
     public String getName() {
 		return name;
 	}
+
+	public  ArrayList<Tuple<String,Double>> getInputs(){
+		return inputs;
+	}
 }

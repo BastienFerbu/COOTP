@@ -19,7 +19,7 @@ public class Main {
 		s.add(proc);
 
 		s.run();*/
-		Simu s = new Simu(10.0);
+		Simu s = new Simu(100.0);
 
 //		s.add(new Step("Step1",1,-3,0.65));
 //		s.add(new Step("Step2",0,1,0.35));
@@ -37,21 +37,25 @@ public class Main {
 //		inputs_name.clear();
 //        inputs_name.add("Adder");
 //		s.add(new Integrator("Integrator",10e-4, inputs_name));
-//		s.add(new StateIntegrator("StateIntegrator", 10e-4, inputs_name));
+//		s.add(new StateIntegrator("StateIntegrator", 0,10e-4, inputs_name));
 //
 //		s.run();
 
-		s.add(new Constant("gravity", -0.981));
+		s.add(new Constant("gravity", -9.81));
         ArrayList<String> inputs_name = new ArrayList<String>();
         inputs_name.add("gravity");
-        inputs_name.add("integratorH");
-		s.add(new StateIntegrator("integratorV", 0,10e-3, inputs_name));
+        inputs_name.add("comp");
+		s.add(new StateIntegrator("integratorV", 0,10e-1, inputs_name));
 
         inputs_name = new ArrayList<String>();
 		inputs_name.add("integratorV");
-		s.add(new StateIntegrator("integratorH", 10,10e-4, inputs_name));
+		s.add(new StateIntegrator("integratorH", 10,10e-3, inputs_name));
 
-
+		inputs_name = new ArrayList<String>();
+		inputs_name.add("integratorH");
+		s.add(new Comp("comp", 0,10e-4, inputs_name));
+//
+//
 		s.run();
 
 	}

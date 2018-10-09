@@ -9,6 +9,7 @@ public class Constant extends AtomicComponent{
 
     public Constant(String name, double _constant){
         super(name);
+        current_state = 0;
         constant = _constant;
     }
 

@@ -1,10 +1,9 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 
-public class StateIntegrator extends AtomicComponent{
+public class StateIntegrator2 extends AtomicComponent{
 
     private double delta_t;
     private double delta_q;
@@ -12,7 +11,7 @@ public class StateIntegrator extends AtomicComponent{
     private double q_dot;
     private double ql;
 
-    public StateIntegrator(String name, double init, double _delta_q, ArrayList<String> inputsName){
+    public StateIntegrator2(String name, double init, double _delta_q, ArrayList<String> inputsName){
         super(name);
         for (String input: inputsName)
             this.inputs.add(new Tuple<String, Double>(input,0.));
@@ -44,7 +43,7 @@ public class StateIntegrator extends AtomicComponent{
             }
 
             if(this.inputs.size() == 2 && elem.x.equals(this.inputs.get(1).x)){
-                if(elem.y == 1){
+                if(elem.y <= 0){
                     q = -q*0.8;
                     delta_t = 0;
                 }

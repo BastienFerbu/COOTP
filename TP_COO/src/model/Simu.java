@@ -15,6 +15,7 @@ public class Simu {
 	protected ChartFrame cf;
 	protected Chart c;
 	protected Chart c2;
+    protected Chart c3;
 
 	public Simu(double _tfin){
 
@@ -25,11 +26,14 @@ public class Simu {
         current_outputs = new ArrayList<Tuple<String,Double>>();
 
         cf = new ChartFrame("GBG", "GBG");
-        c = new Chart("x");
-		c2 = new Chart("y");
+        c = new Chart("V");
+		c2 = new Chart("H");
+        c3 = new Chart("integrator");
         cf.addToLineChartPane(c);
-		cf.addToLineChartPane(c2);
-		c.setIsVisible(true);
+        cf.addToLineChartPane(c2);
+        cf.addToLineChartPane(c3);
+        c3.setIsVisible(true);
+        c.setIsVisible(true);
         c2.setIsVisible(true);
 
 	}
@@ -62,7 +66,7 @@ public class Simu {
                 current_outputs.addAll(im.lambda());
             }
 
-            //System.out.println(this.toString());
+            System.out.println(this.toString());
 
 			// Tick before reset e from changing state
 			for(AtomicComponent cp : components) {
@@ -71,14 +75,18 @@ public class Simu {
 
 
 			for(AtomicComponent cp : components){
-			    if(cp instanceof Integrator){
-                    Integrator b = (Integrator) cp;
-                    c.addDataToSeries(t, b.getX());
+			    if(cp instanceof StateIntegrator && cp.getName().equals("integratorV")){
+                    StateIntegrator b = (StateIntegrator) cp;
+                    c.addDataToSeries(t, b.getQ());
+
                 }
-                if(cp instanceof StateIntegrator){
+                if(cp instanceof StateIntegrator && cp.getName().equals("integratorH")){
                     StateIntegrator b = (StateIntegrator) cp;
                     c2.addDataToSeries(t, b.getQ());
                 }
+
+
+
 				if(imminents.contains(cp)){
 					//Delta will choose between d_int and d_conf
 					cp.delta(current_outputs);

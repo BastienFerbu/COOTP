@@ -95,4 +95,7 @@ public abstract class AtomicComponent {
         }
         return false;
     }
+    public String getName() {
+		return name;
+	}
 }

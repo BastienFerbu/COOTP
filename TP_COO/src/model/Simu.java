@@ -14,6 +14,7 @@ public class Simu {
 
 	protected ChartFrame cf;
 	protected Chart c;
+	protected Chart c2;
 
 	public Simu(double _tfin){
 
@@ -25,8 +26,11 @@ public class Simu {
 
         cf = new ChartFrame("GBG", "GBG");
         c = new Chart("x");
+		c2 = new Chart("y");
         cf.addToLineChartPane(c);
-        c.setIsVisible(true);
+		cf.addToLineChartPane(c2);
+		c.setIsVisible(true);
+        c2.setIsVisible(true);
 
 	}
 
@@ -70,6 +74,10 @@ public class Simu {
 			    if(cp instanceof Integrator){
                     Integrator b = (Integrator) cp;
                     c.addDataToSeries(t, b.getX());
+                }
+                if(cp instanceof StateIntegrator){
+                    StateIntegrator b = (StateIntegrator) cp;
+                    c2.addDataToSeries(t, b.getQ());
                 }
 				if(imminents.contains(cp)){
 					//Delta will choose between d_int and d_conf

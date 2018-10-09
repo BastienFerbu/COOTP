@@ -4,24 +4,27 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class Integrator extends AtomicComponent{
+public class StateIntegrator extends AtomicComponent{
 
-    private double hstep;
-    private double x;
-    private double x_dot;
-    private int i=0;
+    private double delta_t;
+    private double delta_q;
+    private double q;
+    private double q_dot;
+    private double ql;
 
-    public Integrator(String name, double _hstep){
+    public StateIntegrator(String name, double _delta_q){
         super(name);
         this.inputs.add(new Tuple<String, Double>("Adder",0.));
         this.outputs.add(new Tuple<String, Double>(name,0.));
-        hstep = _hstep;
-        x = 0;
-        x_dot = 0;
+        delta_q = _delta_q;
     }
 
     public void delta_int(){
-        x = x + x_dot*hstep;
+        q = q+delta_q*Math.signum(q_dot);
+        if(q_dot == 0){
+            delta_t = Double.POSITIVE_INFINITY;
+        }else
+            delta_t = delta_q / Math.abs(q_dot);
         changeState(0);
         current_state = next_state;
     }
@@ -29,11 +32,17 @@ public class Integrator extends AtomicComponent{
     public void delta_ext(ArrayList<Tuple<String,Double>> inputs){
         for(Tuple<String,Double> elem : inputs){
             if(elem.x == "Adder"){
-                x_dot = elem.y;
+                q_dot = elem.y;
             }
         }
-        System.out.println(i++);
-        x = x + x_dot*e;
+        ql = q;
+        q = q + e*q_dot;
+
+        if(q_dot == 0){
+            delta_t = Double.POSITIVE_INFINITY;
+        }else
+            delta_t = (delta_q - Math.abs(q - ql)) / Math.abs(q_dot);
+
         current_state = next_state;
     }
 
@@ -44,16 +53,16 @@ public class Integrator extends AtomicComponent{
 
     public ArrayList<Tuple<String,Double>> lambda(){
         ArrayList<Tuple<String,Double>> outputs = new ArrayList<Tuple<String,Double>>();
-        x = x + x_dot*hstep;
-        outputs.add(new Tuple<String,Double>(name,x));
+        q = q + delta_q * Math.signum(q_dot);
+        outputs.add(new Tuple<String,Double>(name,q));
         return outputs;
     }
 
     public double getTa(){
-        return hstep;
+        return delta_t;
     }
 
-    public double getX(){
-        return x;
+    public double getQ(){
+        return q_dot;
     }
 }

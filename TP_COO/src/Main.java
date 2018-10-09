@@ -33,7 +33,8 @@ public class Main {
 		inputs_name.add("Step4");
 
 		s.add(new Adder("Adder",inputs_name));
-		s.add(new Integrator("Integrator",0.0001));
+		s.add(new Integrator("Integrator",10e-4));
+		s.add(new StateIntegrator("StateIntegrator", 10e-4));
 
 		s.run();
 

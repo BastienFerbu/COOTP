@@ -19,7 +19,7 @@ public class Main {
 		s.add(proc);
 
 		s.run();*/
-		Simu s = new Simu(100.0);
+		Simu s = new Simu(20.0);
 
 //		s.add(new Step("Step1",1,-3,0.65));
 //		s.add(new Step("Step2",0,1,0.35));
@@ -53,7 +53,7 @@ public class Main {
 
 		inputs_name = new ArrayList<String>();
 		inputs_name.add("integratorH");
-		s.add(new Comp("comp", 0,10e-4, inputs_name));
+		s.add(new Comp("comp", 0, inputs_name));
 //
 //
 		s.run();

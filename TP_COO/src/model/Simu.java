@@ -63,10 +63,6 @@ public class Simu {
             //System.out.println("t_min : " + t_min);
             //Create output from components
             for(AtomicComponent im : imminents){
-                if(im instanceof Comp){
-                    Comp b = (Comp) im;
-                    c3.addDataToSeries(t, b.getOutput()*12);
-                }
 
                 current_outputs.addAll(im.lambda());
 

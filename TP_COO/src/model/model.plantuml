@@ -30,7 +30,6 @@ title __MODEL's Class Diagram__\n
           # integer_varnames_var : HashMap<String, Integer>
           # name : String
           # e : double
-          # t : double
           + AtomicComponent()
           {abstract} + delta_int()
           {abstract} + delta_ext()
@@ -73,7 +72,6 @@ title __MODEL's Class Diagram__\n
       class Comp {
           - seuil : double
           - output : double
-          - dt : double
           - sent : boolean
           + Comp()
           + init()
@@ -209,26 +207,6 @@ title __MODEL's Class Diagram__\n
 
   package  {
     package model {
-      class StateIntegrator2 {
-          - delta_t : double
-          - delta_q : double
-          - q : double
-          - q_dot : double
-          - ql : double
-          + StateIntegrator2()
-          + delta_int()
-          + delta_ext()
-          + delta_con()
-          + lambda()
-          + getTa()
-          + getQ()
-      }
-    }
-  }
-  
-
-  package  {
-    package model {
       class Step {
           - Xi : double
           - Xf : double
@@ -267,7 +245,6 @@ title __MODEL's Class Diagram__\n
   Simu o-- Chart : c2
   Simu o-- Chart : c3
   StateIntegrator -up-|> AtomicComponent
-  StateIntegrator2 -up-|> AtomicComponent
   Step -up-|> AtomicComponent
   Tuple o-- X : x
   Tuple o-- Y : y

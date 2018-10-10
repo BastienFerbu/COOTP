@@ -58,21 +58,21 @@ title __CHART's Class Diagram__\n
   
 
   package  {
+    class AccessibleAWTFocusHandler {
+        # AccessibleAWTFocusHandler()
+        + focusGained()
+        + focusLost()
+    }
+  }
+  
+
+  package  {
     class AccessibleAWTComponentHandler {
         # AccessibleAWTComponentHandler()
         + componentHidden()
         + componentShown()
         + componentMoved()
         + componentResized()
-    }
-  }
-  
-
-  package  {
-    class AccessibleAWTFocusHandler {
-        # AccessibleAWTFocusHandler()
-        + focusGained()
-        + focusLost()
     }
   }
   
@@ -97,21 +97,21 @@ title __CHART's Class Diagram__\n
   
 
   package  {
+    class AccessibleAWTFocusHandler {
+        # AccessibleAWTFocusHandler()
+        + focusGained()
+        + focusLost()
+    }
+  }
+  
+
+  package  {
     class AccessibleAWTComponentHandler {
         # AccessibleAWTComponentHandler()
         + componentHidden()
         + componentShown()
         + componentMoved()
         + componentResized()
-    }
-  }
-  
-
-  package  {
-    class AccessibleAWTFocusHandler {
-        # AccessibleAWTFocusHandler()
-        + focusGained()
-        + focusLost()
     }
   }
   
@@ -136,17 +136,6 @@ title __CHART's Class Diagram__\n
   
 
   package  {
-    class AccessibleAWTComponentHandler {
-        # AccessibleAWTComponentHandler()
-        + componentHidden()
-        + componentShown()
-        + componentMoved()
-        + componentResized()
-    }
-  }
-  
-
-  package  {
     class AccessibleAWTFocusHandler {
         # AccessibleAWTFocusHandler()
         + focusGained()
@@ -156,10 +145,12 @@ title __CHART's Class Diagram__\n
   
 
   package  {
-    enum Type {
-      NORMAL
-      UTILITY
-      POPUP
+    class AccessibleAWTComponentHandler {
+        # AccessibleAWTComponentHandler()
+        + componentHidden()
+        + componentShown()
+        + componentMoved()
+        + componentResized()
     }
   }
   
@@ -172,6 +163,15 @@ title __CHART's Class Diagram__\n
         ~ WindowDisposerRecord()
         + updateOwner()
         + dispose()
+    }
+  }
+  
+
+  package  {
+    enum Type {
+      NORMAL
+      UTILITY
+      POPUP
     }
   }
   
@@ -201,6 +201,15 @@ title __CHART's Class Diagram__\n
   
 
   package  {
+    class AccessibleAWTFocusHandler {
+        # AccessibleAWTFocusHandler()
+        + focusGained()
+        + focusLost()
+    }
+  }
+  
+
+  package  {
     class AccessibleAWTComponentHandler {
         # AccessibleAWTComponentHandler()
         + componentHidden()
@@ -212,10 +221,9 @@ title __CHART's Class Diagram__\n
   
 
   package  {
-    class AccessibleAWTFocusHandler {
-        # AccessibleAWTFocusHandler()
-        + focusGained()
-        + focusLost()
+    class WakingRunnable {
+        ~ WakingRunnable()
+        + run()
     }
   }
   
@@ -230,13 +238,6 @@ title __CHART's Class Diagram__\n
   
 
   package  {
-    interface EventTargetFilter {
-        {abstract} + accept()
-    }
-  }
-  
-
-  package  {
     class MouseEventTargetFilter {
         {static} ~ FILTER : EventTargetFilter
         - MouseEventTargetFilter()
@@ -246,16 +247,8 @@ title __CHART's Class Diagram__\n
   
 
   package  {
-    class WakingRunnable {
-        ~ WakingRunnable()
-        + run()
-    }
-  }
-  
-
-  package  {
-    class AWTTreeLock {
-        ~ AWTTreeLock()
+    interface EventTargetFilter {
+        {abstract} + accept()
     }
   }
   
@@ -311,6 +304,15 @@ title __CHART's Class Diagram__\n
   
 
   package  {
+    class AccessibleAWTFocusHandler {
+        # AccessibleAWTFocusHandler()
+        + focusGained()
+        + focusLost()
+    }
+  }
+  
+
+  package  {
     class AccessibleAWTComponentHandler {
         # AccessibleAWTComponentHandler()
         + componentHidden()
@@ -322,20 +324,40 @@ title __CHART's Class Diagram__\n
   
 
   package  {
-    class AccessibleAWTFocusHandler {
-        # AccessibleAWTFocusHandler()
-        + focusGained()
-        + focusLost()
+    class DummyRequestFocusController {
+        - DummyRequestFocusController()
+        + acceptRequestFocus()
     }
   }
   
 
   package  {
-    enum BaselineResizeBehavior {
-      CONSTANT_ASCENT
-      CONSTANT_DESCENT
-      CENTER_OFFSET
-      OTHER
+    class SingleBufferStrategy {
+        - caps : BufferCapabilities
+        + SingleBufferStrategy()
+        + getCapabilities()
+        + getDrawGraphics()
+        + contentsLost()
+        + contentsRestored()
+        + show()
+    }
+  }
+  
+
+  package  {
+    class BltSubRegionBufferStrategy {
+        # BltSubRegionBufferStrategy()
+        + show()
+        + showIfNotLost()
+    }
+  }
+  
+
+  package  {
+    class FlipSubRegionBufferStrategy {
+        # FlipSubRegionBufferStrategy()
+        + show()
+        + showIfNotLost()
     }
   }
   
@@ -365,23 +387,6 @@ title __CHART's Class Diagram__\n
   
 
   package  {
-    class BltSubRegionBufferStrategy {
-        # BltSubRegionBufferStrategy()
-        + show()
-        + showIfNotLost()
-    }
-  }
-  
-
-  package  {
-    class DummyRequestFocusController {
-        - DummyRequestFocusController()
-        + acceptRequestFocus()
-    }
-  }
-  
-
-  package  {
     class FlipBufferStrategy {
         # numBuffers : int
         # caps : BufferCapabilities
@@ -406,15 +411,6 @@ title __CHART's Class Diagram__\n
         + show()
         ~ showSubRegion()
         + dispose()
-    }
-  }
-  
-
-  package  {
-    class FlipSubRegionBufferStrategy {
-        # FlipSubRegionBufferStrategy()
-        + show()
-        + showIfNotLost()
     }
   }
   
@@ -454,14 +450,18 @@ title __CHART's Class Diagram__\n
   
 
   package  {
-    class SingleBufferStrategy {
-        - caps : BufferCapabilities
-        + SingleBufferStrategy()
-        + getCapabilities()
-        + getDrawGraphics()
-        + contentsLost()
-        + contentsRestored()
-        + show()
+    enum BaselineResizeBehavior {
+      CONSTANT_ASCENT
+      CONSTANT_DESCENT
+      CENTER_OFFSET
+      OTHER
+    }
+  }
+  
+
+  package  {
+    class AWTTreeLock {
+        ~ AWTTreeLock()
     }
   }
   
@@ -509,15 +509,6 @@ title __CHART's Class Diagram__\n
   
 
   package  {
-    class AccessibleContainerHandler {
-        # AccessibleContainerHandler()
-        + componentAdded()
-        + componentRemoved()
-    }
-  }
-  
-
-  package  {
     class AccessibleFocusHandler {
         # AccessibleFocusHandler()
         + focusGained()
@@ -536,6 +527,24 @@ title __CHART's Class Diagram__\n
   
 
   package  {
+    class AccessibleContainerHandler {
+        # AccessibleContainerHandler()
+        + componentAdded()
+        + componentRemoved()
+    }
+  }
+  
+
+  package  {
+    class AccessibleAWTFocusHandler {
+        # AccessibleAWTFocusHandler()
+        + focusGained()
+        + focusLost()
+    }
+  }
+  
+
+  package  {
     class AccessibleAWTComponentHandler {
         # AccessibleAWTComponentHandler()
         + componentHidden()
@@ -547,10 +556,12 @@ title __CHART's Class Diagram__\n
   
 
   package  {
-    class AccessibleAWTFocusHandler {
-        # AccessibleAWTFocusHandler()
-        + focusGained()
-        + focusLost()
+    class ReadObjectCallback {
+        - roots : Vector<JComponent>
+        - inputStream : ObjectInputStream
+        ~ ReadObjectCallback()
+        + validateObject()
+        - registerComponent()
     }
   }
   
@@ -578,15 +589,6 @@ title __CHART's Class Diagram__\n
   
 
   package  {
-    class AccessibleContainerHandler {
-        # AccessibleContainerHandler()
-        + componentAdded()
-        + componentRemoved()
-    }
-  }
-  
-
-  package  {
     class AccessibleFocusHandler {
         # AccessibleFocusHandler()
         + focusGained()
@@ -605,12 +607,10 @@ title __CHART's Class Diagram__\n
   
 
   package  {
-    class AccessibleAWTComponentHandler {
-        # AccessibleAWTComponentHandler()
-        + componentHidden()
-        + componentShown()
-        + componentMoved()
-        + componentResized()
+    class AccessibleContainerHandler {
+        # AccessibleContainerHandler()
+        + componentAdded()
+        + componentRemoved()
     }
   }
   
@@ -625,18 +625,25 @@ title __CHART's Class Diagram__\n
   
 
   package  {
-    class ActionStandin {
-        - actionListener : ActionListener
-        - command : String
-        - action : Action
-        ~ ActionStandin()
-        + getValue()
-        + isEnabled()
-        + actionPerformed()
-        + putValue()
-        + setEnabled()
-        + addPropertyChangeListener()
-        + removePropertyChangeListener()
+    class AccessibleAWTComponentHandler {
+        # AccessibleAWTComponentHandler()
+        + componentHidden()
+        + componentShown()
+        + componentMoved()
+        + componentResized()
+    }
+  }
+  
+
+  package  {
+    class KeyboardState {
+        {static} - keyCodesKey : Object
+        ~ KeyboardState()
+        {static} ~ getKeyCodeArray()
+        {static} ~ registerKeyPressed()
+        {static} ~ registerKeyReleased()
+        {static} ~ keyIsPressed()
+        {static} ~ shouldProcess()
     }
   }
   
@@ -656,25 +663,18 @@ title __CHART's Class Diagram__\n
   
 
   package  {
-    class KeyboardState {
-        {static} - keyCodesKey : Object
-        ~ KeyboardState()
-        {static} ~ getKeyCodeArray()
-        {static} ~ registerKeyPressed()
-        {static} ~ registerKeyReleased()
-        {static} ~ keyIsPressed()
-        {static} ~ shouldProcess()
-    }
-  }
-  
-
-  package  {
-    class ReadObjectCallback {
-        - roots : Vector<JComponent>
-        - inputStream : ObjectInputStream
-        ~ ReadObjectCallback()
-        + validateObject()
-        - registerComponent()
+    class ActionStandin {
+        - actionListener : ActionListener
+        - command : String
+        - action : Action
+        ~ ActionStandin()
+        + getValue()
+        + isEnabled()
+        + actionPerformed()
+        + putValue()
+        + setEnabled()
+        + addPropertyChangeListener()
+        + removePropertyChangeListener()
     }
   }
   
@@ -704,6 +704,15 @@ title __CHART's Class Diagram__\n
   
 
   package  {
+    class AccessibleAWTFocusHandler {
+        # AccessibleAWTFocusHandler()
+        + focusGained()
+        + focusLost()
+    }
+  }
+  
+
+  package  {
     class AccessibleAWTComponentHandler {
         # AccessibleAWTComponentHandler()
         + componentHidden()
@@ -715,10 +724,9 @@ title __CHART's Class Diagram__\n
   
 
   package  {
-    class AccessibleAWTFocusHandler {
-        # AccessibleAWTFocusHandler()
-        + focusGained()
-        + focusLost()
+    class WakingRunnable {
+        ~ WakingRunnable()
+        + run()
     }
   }
   
@@ -733,13 +741,6 @@ title __CHART's Class Diagram__\n
   
 
   package  {
-    interface EventTargetFilter {
-        {abstract} + accept()
-    }
-  }
-  
-
-  package  {
     class MouseEventTargetFilter {
         {static} ~ FILTER : EventTargetFilter
         - MouseEventTargetFilter()
@@ -749,16 +750,8 @@ title __CHART's Class Diagram__\n
   
 
   package  {
-    class WakingRunnable {
-        ~ WakingRunnable()
-        + run()
-    }
-  }
-  
-
-  package  {
-    class AWTTreeLock {
-        ~ AWTTreeLock()
+    interface EventTargetFilter {
+        {abstract} + accept()
     }
   }
   
@@ -814,6 +807,15 @@ title __CHART's Class Diagram__\n
   
 
   package  {
+    class AccessibleAWTFocusHandler {
+        # AccessibleAWTFocusHandler()
+        + focusGained()
+        + focusLost()
+    }
+  }
+  
+
+  package  {
     class AccessibleAWTComponentHandler {
         # AccessibleAWTComponentHandler()
         + componentHidden()
@@ -825,20 +827,40 @@ title __CHART's Class Diagram__\n
   
 
   package  {
-    class AccessibleAWTFocusHandler {
-        # AccessibleAWTFocusHandler()
-        + focusGained()
-        + focusLost()
+    class DummyRequestFocusController {
+        - DummyRequestFocusController()
+        + acceptRequestFocus()
     }
   }
   
 
   package  {
-    enum BaselineResizeBehavior {
-      CONSTANT_ASCENT
-      CONSTANT_DESCENT
-      CENTER_OFFSET
-      OTHER
+    class SingleBufferStrategy {
+        - caps : BufferCapabilities
+        + SingleBufferStrategy()
+        + getCapabilities()
+        + getDrawGraphics()
+        + contentsLost()
+        + contentsRestored()
+        + show()
+    }
+  }
+  
+
+  package  {
+    class BltSubRegionBufferStrategy {
+        # BltSubRegionBufferStrategy()
+        + show()
+        + showIfNotLost()
+    }
+  }
+  
+
+  package  {
+    class FlipSubRegionBufferStrategy {
+        # FlipSubRegionBufferStrategy()
+        + show()
+        + showIfNotLost()
     }
   }
   
@@ -868,23 +890,6 @@ title __CHART's Class Diagram__\n
   
 
   package  {
-    class BltSubRegionBufferStrategy {
-        # BltSubRegionBufferStrategy()
-        + show()
-        + showIfNotLost()
-    }
-  }
-  
-
-  package  {
-    class DummyRequestFocusController {
-        - DummyRequestFocusController()
-        + acceptRequestFocus()
-    }
-  }
-  
-
-  package  {
     class FlipBufferStrategy {
         # numBuffers : int
         # caps : BufferCapabilities
@@ -909,15 +914,6 @@ title __CHART's Class Diagram__\n
         + show()
         ~ showSubRegion()
         + dispose()
-    }
-  }
-  
-
-  package  {
-    class FlipSubRegionBufferStrategy {
-        # FlipSubRegionBufferStrategy()
-        + show()
-        + showIfNotLost()
     }
   }
   
@@ -957,14 +953,18 @@ title __CHART's Class Diagram__\n
   
 
   package  {
-    class SingleBufferStrategy {
-        - caps : BufferCapabilities
-        + SingleBufferStrategy()
-        + getCapabilities()
-        + getDrawGraphics()
-        + contentsLost()
-        + contentsRestored()
-        + show()
+    enum BaselineResizeBehavior {
+      CONSTANT_ASCENT
+      CONSTANT_DESCENT
+      CENTER_OFFSET
+      OTHER
+    }
+  }
+  
+
+  package  {
+    class AWTTreeLock {
+        ~ AWTTreeLock()
     }
   }
   
@@ -996,155 +996,155 @@ title __CHART's Class Diagram__\n
   ChartFrame +-down- AccessibleJFrame
   ChartFrame +-down- AccessibleAWTFrame
   ChartFrame +-down- AccessibleAWTWindow
-  ChartFrame +-down- Type
   ChartFrame +-down- WindowDisposerRecord
+  ChartFrame +-down- Type
   ChartFrame +-down- AccessibleAWTContainer
-  ChartFrame +-down- DropTargetEventTargetFilter
-  ChartFrame +-down- EventTargetFilter
-  ChartFrame +-down- MouseEventTargetFilter
   ChartFrame +-down- WakingRunnable
-  ChartFrame +-down- AWTTreeLock
+  ChartFrame +-down- DropTargetEventTargetFilter
+  ChartFrame +-down- MouseEventTargetFilter
+  ChartFrame +-down- EventTargetFilter
   ChartFrame +-down- AccessibleAWTComponent
-  ChartFrame +-down- BaselineResizeBehavior
-  ChartFrame +-down- BltBufferStrategy
-  ChartFrame +-down- BltSubRegionBufferStrategy
   ChartFrame +-down- DummyRequestFocusController
-  ChartFrame +-down- FlipBufferStrategy
-  ChartFrame +-down- FlipSubRegionBufferStrategy
-  ChartFrame +-down- ProxyCapabilities
   ChartFrame +-down- SingleBufferStrategy
+  ChartFrame +-down- BltSubRegionBufferStrategy
+  ChartFrame +-down- FlipSubRegionBufferStrategy
+  ChartFrame +-down- BltBufferStrategy
+  ChartFrame +-down- FlipBufferStrategy
+  ChartFrame +-down- ProxyCapabilities
+  ChartFrame +-down- BaselineResizeBehavior
+  ChartFrame +-down- AWTTreeLock
   AccessibleJFrame -up-|> AccessibleAWTFrame
   AccessibleJFrame +-down- AccessibleContainerHandler
-  AccessibleJFrame +-down- AccessibleAWTComponentHandler
   AccessibleJFrame +-down- AccessibleAWTFocusHandler
+  AccessibleJFrame +-down- AccessibleAWTComponentHandler
   AccessibleContainerHandler -up-|> ContainerListener
-  AccessibleAWTComponentHandler -up-|> ComponentListener
   AccessibleAWTFocusHandler -up-|> FocusListener
+  AccessibleAWTComponentHandler -up-|> ComponentListener
   AccessibleAWTFrame -up-|> AccessibleAWTWindow
   AccessibleAWTFrame +-down- AccessibleContainerHandler
-  AccessibleAWTFrame +-down- AccessibleAWTComponentHandler
   AccessibleAWTFrame +-down- AccessibleAWTFocusHandler
+  AccessibleAWTFrame +-down- AccessibleAWTComponentHandler
   AccessibleContainerHandler -up-|> ContainerListener
-  AccessibleAWTComponentHandler -up-|> ComponentListener
   AccessibleAWTFocusHandler -up-|> FocusListener
+  AccessibleAWTComponentHandler -up-|> ComponentListener
   AccessibleAWTWindow -up-|> AccessibleAWTContainer
   AccessibleAWTWindow +-down- AccessibleContainerHandler
-  AccessibleAWTWindow +-down- AccessibleAWTComponentHandler
   AccessibleAWTWindow +-down- AccessibleAWTFocusHandler
+  AccessibleAWTWindow +-down- AccessibleAWTComponentHandler
   AccessibleContainerHandler -up-|> ContainerListener
-  AccessibleAWTComponentHandler -up-|> ComponentListener
   AccessibleAWTFocusHandler -up-|> FocusListener
+  AccessibleAWTComponentHandler -up-|> ComponentListener
   WindowDisposerRecord -up-|> DisposerRecord
   AccessibleAWTContainer -up-|> AccessibleAWTComponent
   AccessibleAWTContainer +-down- AccessibleContainerHandler
-  AccessibleAWTContainer +-down- AccessibleAWTComponentHandler
   AccessibleAWTContainer +-down- AccessibleAWTFocusHandler
+  AccessibleAWTContainer +-down- AccessibleAWTComponentHandler
   AccessibleContainerHandler -up-|> ContainerListener
-  AccessibleAWTComponentHandler -up-|> ComponentListener
   AccessibleAWTFocusHandler -up-|> FocusListener
+  AccessibleAWTComponentHandler -up-|> ComponentListener
+  WakingRunnable -up-|> Runnable
   DropTargetEventTargetFilter -up-|> EventTargetFilter
   MouseEventTargetFilter -up-|> EventTargetFilter
-  WakingRunnable -up-|> Runnable
   AccessibleAWTComponent -up-|> Serializable
   AccessibleAWTComponent -up-|> AccessibleComponent
   AccessibleAWTComponent -up-|> AccessibleContext
-  AccessibleAWTComponent +-down- AccessibleAWTComponentHandler
   AccessibleAWTComponent +-down- AccessibleAWTFocusHandler
-  AccessibleAWTComponentHandler -up-|> ComponentListener
+  AccessibleAWTComponent +-down- AccessibleAWTComponentHandler
   AccessibleAWTFocusHandler -up-|> FocusListener
-  BltBufferStrategy -up-|> BufferStrategy
+  AccessibleAWTComponentHandler -up-|> ComponentListener
+  DummyRequestFocusController -up-|> RequestFocusController
+  SingleBufferStrategy -up-|> BufferStrategy
   BltSubRegionBufferStrategy -up-|> SubRegionShowable
   BltSubRegionBufferStrategy -up-|> BltBufferStrategy
-  DummyRequestFocusController -up-|> RequestFocusController
-  FlipBufferStrategy -up-|> BufferStrategy
   FlipSubRegionBufferStrategy -up-|> SubRegionShowable
   FlipSubRegionBufferStrategy -up-|> FlipBufferStrategy
+  BltBufferStrategy -up-|> BufferStrategy
+  FlipBufferStrategy -up-|> BufferStrategy
   ProxyCapabilities -up-|> ExtendedBufferCapabilities
   ProxyCapabilities +-down- VSyncType
   ProxyCapabilities +-down- FlipContents
   FlipContents -up-|> AttributeValue
-  SingleBufferStrategy -up-|> BufferStrategy
   LineChartPane -up-|> ActionListener
   LineChartPane -up-|> Observer
   LineChartPane -up-|> JSplitPane
   LineChartPane o-- TableModelChart : tableModel
   LineChartPane +-down- AccessibleJSplitPane
-  LineChartPane +-down- AccessibleJComponent
-  LineChartPane +-down- ActionStandin
-  LineChartPane +-down- IntVector
-  LineChartPane +-down- KeyboardState
   LineChartPane +-down- ReadObjectCallback
+  LineChartPane +-down- AccessibleJComponent
+  LineChartPane +-down- KeyboardState
+  LineChartPane +-down- IntVector
+  LineChartPane +-down- ActionStandin
   LineChartPane +-down- AccessibleAWTContainer
-  LineChartPane +-down- DropTargetEventTargetFilter
-  LineChartPane +-down- EventTargetFilter
-  LineChartPane +-down- MouseEventTargetFilter
   LineChartPane +-down- WakingRunnable
-  LineChartPane +-down- AWTTreeLock
+  LineChartPane +-down- DropTargetEventTargetFilter
+  LineChartPane +-down- MouseEventTargetFilter
+  LineChartPane +-down- EventTargetFilter
   LineChartPane +-down- AccessibleAWTComponent
-  LineChartPane +-down- BaselineResizeBehavior
-  LineChartPane +-down- BltBufferStrategy
-  LineChartPane +-down- BltSubRegionBufferStrategy
   LineChartPane +-down- DummyRequestFocusController
-  LineChartPane +-down- FlipBufferStrategy
-  LineChartPane +-down- FlipSubRegionBufferStrategy
-  LineChartPane +-down- ProxyCapabilities
   LineChartPane +-down- SingleBufferStrategy
+  LineChartPane +-down- BltSubRegionBufferStrategy
+  LineChartPane +-down- FlipSubRegionBufferStrategy
+  LineChartPane +-down- BltBufferStrategy
+  LineChartPane +-down- FlipBufferStrategy
+  LineChartPane +-down- ProxyCapabilities
+  LineChartPane +-down- BaselineResizeBehavior
+  LineChartPane +-down- AWTTreeLock
   AccessibleJSplitPane -up-|> AccessibleValue
   AccessibleJSplitPane -up-|> AccessibleJComponent
-  AccessibleJSplitPane +-down- AccessibleContainerHandler
   AccessibleJSplitPane +-down- AccessibleFocusHandler
   AccessibleJSplitPane +-down- AccessibleContainerHandler
-  AccessibleJSplitPane +-down- AccessibleAWTComponentHandler
+  AccessibleJSplitPane +-down- AccessibleContainerHandler
   AccessibleJSplitPane +-down- AccessibleAWTFocusHandler
-  AccessibleContainerHandler -up-|> ContainerListener
+  AccessibleJSplitPane +-down- AccessibleAWTComponentHandler
   AccessibleFocusHandler -up-|> FocusListener
   AccessibleContainerHandler -up-|> ContainerListener
-  AccessibleAWTComponentHandler -up-|> ComponentListener
+  AccessibleContainerHandler -up-|> ContainerListener
   AccessibleAWTFocusHandler -up-|> FocusListener
+  AccessibleAWTComponentHandler -up-|> ComponentListener
+  ReadObjectCallback -up-|> ObjectInputValidation
   AccessibleJComponent -up-|> AccessibleExtendedComponent
   AccessibleJComponent -up-|> AccessibleAWTContainer
-  AccessibleJComponent +-down- AccessibleContainerHandler
   AccessibleJComponent +-down- AccessibleFocusHandler
   AccessibleJComponent +-down- AccessibleContainerHandler
-  AccessibleJComponent +-down- AccessibleAWTComponentHandler
+  AccessibleJComponent +-down- AccessibleContainerHandler
   AccessibleJComponent +-down- AccessibleAWTFocusHandler
-  AccessibleContainerHandler -up-|> ContainerListener
+  AccessibleJComponent +-down- AccessibleAWTComponentHandler
   AccessibleFocusHandler -up-|> FocusListener
   AccessibleContainerHandler -up-|> ContainerListener
-  AccessibleAWTComponentHandler -up-|> ComponentListener
+  AccessibleContainerHandler -up-|> ContainerListener
   AccessibleAWTFocusHandler -up-|> FocusListener
-  ActionStandin -up-|> Action
+  AccessibleAWTComponentHandler -up-|> ComponentListener
   KeyboardState -up-|> Serializable
-  ReadObjectCallback -up-|> ObjectInputValidation
+  ActionStandin -up-|> Action
   AccessibleAWTContainer -up-|> AccessibleAWTComponent
   AccessibleAWTContainer +-down- AccessibleContainerHandler
-  AccessibleAWTContainer +-down- AccessibleAWTComponentHandler
   AccessibleAWTContainer +-down- AccessibleAWTFocusHandler
+  AccessibleAWTContainer +-down- AccessibleAWTComponentHandler
   AccessibleContainerHandler -up-|> ContainerListener
-  AccessibleAWTComponentHandler -up-|> ComponentListener
   AccessibleAWTFocusHandler -up-|> FocusListener
+  AccessibleAWTComponentHandler -up-|> ComponentListener
+  WakingRunnable -up-|> Runnable
   DropTargetEventTargetFilter -up-|> EventTargetFilter
   MouseEventTargetFilter -up-|> EventTargetFilter
-  WakingRunnable -up-|> Runnable
   AccessibleAWTComponent -up-|> Serializable
   AccessibleAWTComponent -up-|> AccessibleComponent
   AccessibleAWTComponent -up-|> AccessibleContext
-  AccessibleAWTComponent +-down- AccessibleAWTComponentHandler
   AccessibleAWTComponent +-down- AccessibleAWTFocusHandler
-  AccessibleAWTComponentHandler -up-|> ComponentListener
+  AccessibleAWTComponent +-down- AccessibleAWTComponentHandler
   AccessibleAWTFocusHandler -up-|> FocusListener
-  BltBufferStrategy -up-|> BufferStrategy
+  AccessibleAWTComponentHandler -up-|> ComponentListener
+  DummyRequestFocusController -up-|> RequestFocusController
+  SingleBufferStrategy -up-|> BufferStrategy
   BltSubRegionBufferStrategy -up-|> SubRegionShowable
   BltSubRegionBufferStrategy -up-|> BltBufferStrategy
-  DummyRequestFocusController -up-|> RequestFocusController
-  FlipBufferStrategy -up-|> BufferStrategy
   FlipSubRegionBufferStrategy -up-|> SubRegionShowable
   FlipSubRegionBufferStrategy -up-|> FlipBufferStrategy
+  BltBufferStrategy -up-|> BufferStrategy
+  FlipBufferStrategy -up-|> BufferStrategy
   ProxyCapabilities -up-|> ExtendedBufferCapabilities
   ProxyCapabilities +-down- VSyncType
   ProxyCapabilities +-down- FlipContents
   FlipContents -up-|> AttributeValue
-  SingleBufferStrategy -up-|> BufferStrategy
   TimeAndValue -up-|> Serializable
 
 

@@ -1,0 +1,283 @@
+@startuml
+
+title __MODEL's Class Diagram__\n
+
+  package  {
+    package model {
+      class Adder {
+          - X : HashMap<String, Double>
+          - x_sum : double
+          + Adder()
+          + init()
+          + delta_int()
+          + delta_ext()
+          + delta_con()
+          + lambda()
+          + getx_sum()
+          + getTa()
+      }
+    }
+  }
+  
+
+  package  {
+    package model {
+      abstract class AtomicComponent {
+          # current_state : int
+          # next_state : int
+          # inputs : ArrayList<Tuple<String, Double>>
+          # outputs : ArrayList<Tuple<String, Double>>
+          # integer_varnames_var : HashMap<String, Integer>
+          # name : String
+          # e : double
+          # t : double
+          + AtomicComponent()
+          {abstract} + delta_int()
+          {abstract} + delta_ext()
+          {abstract} + delta_con()
+          {abstract} + lambda()
+          {abstract} + getTa()
+          + getTr()
+          + delta()
+          + tick()
+          + reset_e()
+          + changeState()
+          + toString()
+          {static} + containsInputs()
+          + getName()
+          + getInputs()
+      }
+    }
+  }
+  
+
+  package  {
+    package model {
+      class Buf {
+          - q : int
+          + Buf()
+          + init()
+          + delta_int()
+          + delta_ext()
+          + delta_con()
+          + lambda()
+          + getTa()
+          + getQ()
+      }
+    }
+  }
+  
+
+  package  {
+    package model {
+      class Comp {
+          - seuil : double
+          - output : double
+          - dt : double
+          - sent : boolean
+          + Comp()
+          + init()
+          + delta_int()
+          + delta_ext()
+          + delta_con()
+          + lambda()
+          + getOutput()
+          + getTa()
+      }
+    }
+  }
+  
+
+  package  {
+    package model {
+      class Constant {
+          - constant : double
+          - Xf : double
+          - ts : double
+          + Constant()
+          + init()
+          + delta_int()
+          + delta_ext()
+          + delta_con()
+          + lambda()
+          + getTa()
+      }
+    }
+  }
+  
+
+  package  {
+    package model {
+      abstract class CoupledComponent {
+          # components : ArrayList<AtomicComponent>
+          # inputs : ArrayList<String>
+          # outputs : ArrayList<String>
+          # couple_function : HashMap<String, String>
+          # name : String
+          + CoupledComponent()
+      }
+    }
+  }
+  
+
+  package  {
+    package model {
+      class Gen {
+          + Gen()
+          + init()
+          + delta_int()
+          + delta_ext()
+          + delta_con()
+          + lambda()
+          + getTa()
+      }
+    }
+  }
+  
+
+  package  {
+    package model {
+      class Integrator {
+          - hstep : double
+          - x : double
+          - x_dot : double
+          - delta_t : double
+          - i : int
+          + Integrator()
+          + delta_int()
+          + delta_ext()
+          + delta_con()
+          + lambda()
+          + getTa()
+          + getX()
+      }
+    }
+  }
+  
+
+  package  {
+    package model {
+      class Proc {
+          + Proc()
+          + init()
+          + delta_int()
+          + delta_ext()
+          + delta_con()
+          + lambda()
+          + getTa()
+      }
+    }
+  }
+  
+
+  package  {
+    package model {
+      class Simu {
+          # components : ArrayList<AtomicComponent>
+          # imminents : ArrayList<AtomicComponent>
+          # current_outputs : ArrayList<Tuple<String, Double>>
+          # t : double
+          # tfin : double
+          + Simu()
+          + add()
+          + run()
+          + toString()
+      }
+    }
+  }
+  
+
+  package  {
+    package model {
+      class StateIntegrator {
+          - delta_t : double
+          - delta_q : double
+          - q : double
+          - q_dot : double
+          - ql : double
+          + StateIntegrator()
+          + delta_int()
+          + delta_ext()
+          + delta_con()
+          + lambda()
+          + getTa()
+          + getQ()
+      }
+    }
+  }
+  
+
+  package  {
+    package model {
+      class StateIntegrator2 {
+          - delta_t : double
+          - delta_q : double
+          - q : double
+          - q_dot : double
+          - ql : double
+          + StateIntegrator2()
+          + delta_int()
+          + delta_ext()
+          + delta_con()
+          + lambda()
+          + getTa()
+          + getQ()
+      }
+    }
+  }
+  
+
+  package  {
+    package model {
+      class Step {
+          - Xi : double
+          - Xf : double
+          - ts : double
+          + Step()
+          + init()
+          + delta_int()
+          + delta_ext()
+          + delta_con()
+          + lambda()
+          + getTa()
+      }
+    }
+  }
+  
+
+  package  {
+    package model {
+      class Tuple {
+          + Tuple()
+          + equals()
+      }
+    }
+  }
+  
+
+  Adder -up-|> AtomicComponent
+  Buf -up-|> AtomicComponent
+  Comp -up-|> AtomicComponent
+  Constant -up-|> AtomicComponent
+  Gen -up-|> AtomicComponent
+  Integrator -up-|> AtomicComponent
+  Proc -up-|> AtomicComponent
+  Simu o-- ChartFrame : cf
+  Simu o-- Chart : c
+  Simu o-- Chart : c2
+  Simu o-- Chart : c3
+  StateIntegrator -up-|> AtomicComponent
+  StateIntegrator2 -up-|> AtomicComponent
+  Step -up-|> AtomicComponent
+  Tuple o-- X : x
+  Tuple o-- Y : y
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml
